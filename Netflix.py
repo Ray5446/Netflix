@@ -1,0 +1,11 @@
+import pandas as pd
+df = pd.read_csv(r'C:\python projects\Netflix\netflix_titles.csv')
+df['director'] = df['director'].fillna('Unknown')
+df['cast'] = df['cast'].fillna('Unknown')
+df['country'] = df['country'].fillna('Unknown')
+df['main_country'] = df['country'].apply(lambda x: x.split(',')[0].strip())
+df.dropna(subset=['date_added'], inplace=True)
+df.dropna(subset=['rating'], inplace=True)
+df['date_added'] = pd.to_datetime(df['date_added'].str.strip())
+print(df.isnull().sum())
+print(df.count())
